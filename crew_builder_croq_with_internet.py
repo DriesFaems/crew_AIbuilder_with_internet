@@ -10,13 +10,15 @@ from langchain_groq import ChatGroq
 
 # create title for the streamlit app
 
-st.title('Autonomous Crew Builder')
+st.title('Autonomous Crew Builder with Internet Access')
 
 # create a description for the streamlit app
 
-st.write('This app allows you to create an autonomous crew of agents that can work together to achieve a common goal. You need to define upfront the number of agents that you will use. The agents will work in a sequential order. The agents can be assigned different roles, goals, backstories, tasks and expected outputs. The agents will work together to achieve the common goal. The app will display the output of each agent after the crew has completed its work.')
+st.write('This app allows you to create an autonomous crew of agents that can work together to achieve a common goal. You need to define upfront the number of agents that you will use. The agents will work in a sequential order. The agents can be assigned different roles, goals, backstories, tasks and expected outputs. You can also indicate wich agents should have access to the internet. The agents will work together to achieve the common goal. The app will display the output of each agent after the crew has completed its work. For more information, please contact Dries Faems, https://www.linkedin.com/in/dries-faems-0371569/ For additional applications check out https://www.youtube.com/@GenAI_Nerd_Channel')
 
 # ask for the API key in password form
+
+st.write('Please enter your GROQ API key and your Serper API key. You can get and use the API key at https://groq.com/ and https://serper.dev/. For an instruction video on how to get a Groq API key, check out https://www.youtube.com/watch?v=_Deu9x5efvQ&t=9s')
 groq_api_key = st.text_input('Enter your GROQ API key', type='password')
 
 serper_api_key = st.text_input('Enter your Serper API key', type='password')
@@ -41,17 +43,17 @@ for i in range(0,number_of_agents):
     question = 'Enter the name of agent ' + str(i+1)
     agent_name = st.text_input(question)
     namelist.append(agent_name)
-    role = st.text_input(f"""Enter the role of agent {agent_name}""" + str(i+1))
+    role = st.text_input(f"""Enter the role of agent {i+1}: {agent_name}""")
     rolelist.append(role)
-    goal = st.text_input(f"""Enter the goal of agent {agent_name}""" + str(i+1))
+    goal = st.text_input(f"""Enter the goal of agent {i+1}: {agent_name}""")
     goallist.append(goal)
-    backstory = st.text_input(f"""Describe the backstory of agent {agent_name}""" + str(i+1))
+    backstory = st.text_input(f"""Describe the backstory of agent {i+1}: {agent_name}""")
     backstorylist.append(backstory)
-    taskdescription = st.text_input(f"""Describe the task of agent {agent_name}""" + str(i+1))
+    taskdescription = st.text_input(f"""Describe the task of agent {i+1}: {agent_name}""")
     taskdescriptionlist.append(taskdescription)
-    output = st.text_input(f"""Describe the expected output of agent {agent_name}""" +  str(i+1))
+    output = st.text_input(f"""Describe the expected output of agent {i+1}: {agent_name}""")
     outputlist.append(output)
-    search_tool = st.checkbox(f"""Do you want to use the search tool for agent {agent_name}""" + str(i+1))
+    search_tool = st.checkbox(f"""Do you want to use the search tool for agent {i+1}: {agent_name}""")
     if search_tool:
         toollist.append('search')
     else:
